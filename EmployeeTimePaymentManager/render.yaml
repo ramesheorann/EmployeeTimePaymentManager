@@ -3,10 +3,16 @@ services:
     name: EmployeeTimePaymentManager
     env: java
     repo: https://github.com/ramesheorann/EmployeeTimePaymentManager
-    branch: main
+    branch: master
+    rootDir: EmployeeTimePaymentManager   # 👈 very important!
     buildCommand: ./mvnw clean install
     startCommand: java -jar target/*.jar
-    plan: free
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: prod
+      - key: DATABASE_URL
+        value: jdbc:postgresql://dpg-d1ift52li9vc7380vveg-a.oregon-postgres.render.com:5432/employeedatabase_6lst
+      - key: DB_USERNAME
+        value: employeedatabase_6lst_user
+      - key: DB_PASSWORD
+        value: 1r5ejGNbtNkr5Fka4ONmaCYVVRhAACua
