@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sheoran Corporation Ltd. - Payroll System</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+			
+			background-image: url('/images/SheoranCorp4.png'); 
+			background-size: cover;
+			            background-position: center;
+			            background-repeat: no-repeat;
+			            background-attachment: fixed; 
+        }
+        
+        .login-container {
+			background: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+			            padding: 2.5rem;
+			            border-radius: 10px;
+			            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+			            width: 380px; 
+			            text-align: center;
+			            backdrop-filter: blur(5px); /* Adds a blur effect to the background behind */
+			            border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
+        }
+        
+        .company-logo {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .system-name {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        
+        .btn-login {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-login:hover {
+            background-color: #2980b9;
+        }
+        
+        .alert {
+            padding: 0.8rem;
+            margin-bottom: 1.5rem;
+            border-radius: 6px;
+        }
+        
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="company-logo">Sheoran Corporation Ltd.</div>
+        <div class="system-name">Payroll System-Login</div>
+        
+        <div th:if="${param.error}" class="alert alert-error">
+            Invalid username or password.
+        </div>
+        <div th:if="${param.logout}" class="alert alert-success">
+            You have been logged out successfully.
+        </div>
+        
+        <form th:action="@{/login}" method="post">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required 
+                       placeholder="Enter your username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required 
+                       placeholder="Enter your password">
+            </div>
+            <button type="submit" class="btn-login">Login</button>
+        </form>
+    </div>
+</body>
+</html>

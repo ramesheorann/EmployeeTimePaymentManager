@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Dashboard</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <!-- Use the direct firstName attribute as fallback -->
+        <h1>Welcome, <span th:text="${firstName} ?: ${employee?.firstName}">User</span></h1>
+        <a th:href="@{/logout}" class="btn">Logout</a>
+    </header>
+    <nav>
+        <ul>
+            <li><a th:href="@{/employee/dashboard}">Dashboard</a></li>
+            <li><a th:href="@{/employee/timesheet}">Timesheet</a></li>
+            <li><a th:href="@{/employee/payslips}">Payslips</a></li>
+        </ul>
+    </nav>
+    <main>
+        <div class="dashboard-cards">
+            <div class="card">
+                <h3>Hours This Week</h3>
+                <p>32.5</p>
+            </div>
+            <div class="card">
+                <h3>Next Payday</h3>
+                <!-- Safely handle temporal formatting -->
+                <p th:text="${#temporals.format(nextPayday, 'MMM dd')}"></p>
+            </div>
+            <div class="card">
+                <h3>Recent Payslip</h3>
+                <a th:href="@{/employee/payslips}" class="btn">View</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

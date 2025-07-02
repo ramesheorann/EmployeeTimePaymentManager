@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Payslips</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <h1>Generate Payslips</h1>
+        <a th:href="@{/logout}" class="btn">Logout</a>
+    </header>
+    <nav>
+        <ul>
+            <li><a th:href="@{/admin/dashboard}">Dashboard</a></li>
+            <li><a th:href="@{/admin/employees}">Employees</a></li>
+            <li><a th:href="@{/admin/timesheets}">Timesheets</a></li>
+            <li><a th:href="@{/admin/payslips}">Payslips</a></li>
+        </ul>
+    </nav>
+    <main>
+        <form th:action="@{/admin/generate-payslips}" method="post">
+            <div class="form-group">
+                <label for="periodStart">Period Start:</label>
+                <input type="date" id="periodStart" name="periodStart" 
+                       th:value="${#temporals.format(periodStart, 'yyyy-MM-dd')}" required />
+            </div>
+            <div class="form-group">
+                <label for="periodEnd">Period End:</label>
+                <input type="date" id="periodEnd" name="periodEnd" 
+                       th:value="${#temporals.format(periodEnd, 'yyyy-MM-dd')}" required />
+            </div>
+            <button type="submit" class="btn">Generate Payslips</button>
+        </form>
+    </main>
+</body>
+</html>

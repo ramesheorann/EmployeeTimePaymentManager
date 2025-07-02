@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Employees</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <h1>Manage Employees</h1>
+        <a th:href="@{/logout}" class="btn">Logout</a>
+    </header>
+    <nav>
+        <ul>
+            <li><a th:href="@{/admin/dashboard}">Dashboard</a></li>
+            <li><a th:href="@{/admin/employees}">Employees</a></li>
+            <li><a th:href="@{/admin/timesheets}">Timesheets</a></li>
+            <li><a th:href="@{/admin/payslips}">Payslips</a></li>
+        </ul>
+    </nav>
+    <main>
+		<a th:href="@{/admin/employee/new}" class="btn">Add New Employee</a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Position</th> 
+                    <th>Hourly Rate</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="employee : ${employees}">
+                    <td th:text="${employee.firstName + ' ' + employee.lastName}"></td>
+                    <td th:text="${employee.email}"></td>
+                    <td th:text="${employee.position}"></td>
+                    <td th:text="${'$' + #numbers.formatDecimal(employee.hourlyRate, 1, 2, 'COMMA')}"></td>
+                    <td>
+						<a th:href="@{/admin/employee/} + ${employee.id}" class="btn">View</a>
+						<a th:href="@{'/admin/employee/edit/' + ${employee.id}}" class="btn">Edit</a>
+						    <a th:href="@{'/admin/employee/delete/' + ${employee.id}}"
+						       onclick="return confirm('Are you sure you want to delete this employee?')"
+						       class="btn">Delete</a>
+					</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

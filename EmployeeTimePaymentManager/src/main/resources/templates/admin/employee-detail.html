@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Details</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <h1>Employee Details</h1>
+        <a th:href="@{/logout}" class="btn">Logout</a>
+    </header>
+    <nav>
+        <ul>
+            <li><a th:href="@{/admin/dashboard}">Dashboard</a></li>
+            <li><a th:href="@{/admin/employees}">Employees</a></li>
+            <li><a th:href="@{/admin/timesheets}">Timesheets</a></li>
+            <li><a th:href="@{/admin/payslips}">Payslips</a></li>
+        </ul>
+    </nav>
+    <main>
+        <div class="employee-details">
+            <h2 th:text="${employee.firstName + ' ' + employee.lastName}"></h2>
+            <div>
+                <span>Email:</span>
+                <span th:text="${employee.email}"></span>
+            </div>
+            <div>
+                <span>Position:</span>
+                <span th:text="${employee.position}"></span>
+            </div>
+            <div>
+                <span>Hourly Rate:</span>
+                <span th:text="${'$' + #numbers.formatDecimal(employee.hourlyRate, 1, 2, 'COMMA')}"></span>
+            </div>
+        </div>
+        <a th:href="@{/admin/employees}" class="btn">Back to Employees</a>
+    </main>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Payslips</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <h1>My Payslips</h1>
+        <a th:href="@{/logout}" class="btn">Logout</a>
+    </header>
+    <nav>
+        <ul>
+            <li><a th:href="@{/employee/dashboard}">Dashboard</a></li>
+            <li><a th:href="@{/employee/timesheet}">Timesheet</a></li>
+            <li><a th:href="@{/employee/payslips}">Payslips</a></li>
+        </ul>
+    </nav>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Period</th>
+                    <th>Payment Date</th>
+                    <th>Net Pay</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="payslip : ${payslips}">
+                    <td th:text="${#temporals.format(payslip.periodStart, 'MMM dd') + ' - ' + #temporals.format(payslip.periodEnd, 'MMM dd')}"></td>
+                    <td th:text="${#temporals.format(payslip.paymentDate, 'MMM dd, yyyy')}"></td>
+                    <td th:text="${'$' + #numbers.formatDecimal(payslip.netPay, 1, 2, 'COMMA')}"></td>
+                    <td><a th:href="@{/employee/payslip/} + ${payslip.id}"class="btn">View</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

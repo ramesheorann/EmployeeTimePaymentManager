@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Timesheets</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <h1>Manage Timesheets</h1>
+        <a th:href="@{/logout}" class="btn">Logout</a>
+    </header>
+    <nav>
+        <ul>
+            <li><a th:href="@{/admin/dashboard}">Dashboard</a></li>
+            <li><a th:href="@{/admin/employees}">Employees</a></li>
+            <li><a th:href="@{/admin/timesheets}">Timesheets</a></li>
+            <li><a th:href="@{/admin/payslips}">Payslips</a></li>
+        </ul>
+    </nav>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Employee</th>
+                    <th>Date</th>
+                    <th>Clock In</th>
+                    <th>Clock Out</th>
+                    <th>Hours</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="entry : ${pendingEntries}">
+                    <td th:text="${entry.employee.firstName + ' ' + entry.employee.lastName}"></td>
+                    <td th:text="${#temporals.format(entry.clockIn, 'MMM dd, yyyy')}"></td>
+                    <td th:text="${#temporals.format(entry.clockIn, 'hh:mm a')}"></td>
+                    <td th:text="${entry.clockOut != null} ? ${#temporals.format(entry.clockOut, 'hh:mm a')} : '--'"></td>
+                    <td th:text="${entry.clockOut != null} ? ${#numbers.formatDecimal(T(java.time.Duration).between(entry.clockIn, entry.clockOut).toHours(), 1, 2)} : '--'"></td>
+                    <td>
+                        <form th:action="@{/admin/approve-time/} + ${entry.id}" method="post">
+                            <button type="submit" class="btn-small">Approve</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>
