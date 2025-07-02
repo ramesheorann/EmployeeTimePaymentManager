@@ -1,10 +1,10 @@
 services:
   - type: web
     name: EmployeeTimePaymentManager
-    env: java
+    runtime: java
     repo: https://github.com/ramesheorann/EmployeeTimePaymentManager
     branch: master
-    buildCommand: mvn clean install      
+    buildCommand: ./mvnw clean install  
     startCommand: java -jar target/*.jar
     envVars:
       - key: SPRING_PROFILES_ACTIVE
