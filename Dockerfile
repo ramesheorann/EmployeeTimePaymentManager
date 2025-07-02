@@ -1,17 +1,16 @@
-# Use an official OpenJDK image as the base
-FROM eclipse-temurin:17-jdk-alpine
+# Use Maven to build the app first, then run it
 
-# Set working directory
+# ----------- STAGE 1: Build ----------- #
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
 
-# Copy the jar from target to the container
-COPY target/*.jar app.jar
-
-# Expose the port Render will use
+# ----------- STAGE 2: Run ------------ #
+FROM eclipse-temurin:17-jdk-alpine
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
-
-# Set environment variables if needed
 ENV JAVA_OPTS=""
-
-# Run the jar file
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
