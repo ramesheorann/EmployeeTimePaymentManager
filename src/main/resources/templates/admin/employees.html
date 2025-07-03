@@ -36,7 +36,7 @@
                     <td th:text="${employee.firstName + ' ' + employee.lastName}"></td>
                     <td th:text="${employee.email}"></td>
                     <td th:text="${employee.position}"></td>
-                    <td th:text="${'$' + #numbers.formatDecimal(employee.hourlyRate, 1, 2, 'COMMA')}"></td>
+                    <td th:text="${'₹ ' + #numbers.formatDecimal(employee.hourlyRate, 1, 2, 'COMMA')}"></td>
                     <td>
 						<a th:href="@{/admin/employee/} + ${employee.id}" class="btn">View</a>
 						<a th:href="@{'/admin/employee/edit/' + ${employee.id}}" class="btn">Edit</a>
