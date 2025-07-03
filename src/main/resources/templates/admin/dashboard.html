@@ -22,7 +22,7 @@
         <div class="dashboard-cards">
             <div class="card">
                 <h3>Employees</h3>
-                <p th:text="'Total Employees: ' + ${employeeCount}"></p>
+                <p th:text="${employeeCount}"></p>
                 <a th:href="@{/admin/employees}" class="btn" >Manage</a>
             </div>
             <div class="card">
@@ -31,7 +31,8 @@
                 <a th:href="@{/admin/timesheets}" class="btn">Review</a>
             </div>
             <div class="card">
-                <h3>Generate Payslips</h3>
+                <h3>Generate New Payslips</h3>
+				<p th:text="${payslipsCount}"></p>
                 <a th:href="@{/admin/generate-payslips}" class="btn">Generate</a>
             </div>
         </div>

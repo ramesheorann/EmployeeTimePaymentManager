@@ -21,18 +21,35 @@
     <main>
         <div class="dashboard-cards">
             <div class="card">
-                <h3>Hours This Week</h3>
-                <p>32.5</p>
+                <h3>Work Hours Per Day</h3>
+                <p>8</p>
             </div>
             <div class="card">
-                <h3>Next Payday</h3>
-                <!-- Safely handle temporal formatting -->
+                <h3>Next Expected Payday</h3>
                 <p th:text="${#temporals.format(nextPayday, 'MMM dd')}"></p>
             </div>
+			<div class="card">
+				<h3>Clock In/Out</h3>
+				<p>9:00 AM - 5:00 PM</p>
+				<div class="timesheet-actions">
+				    <form th:action="@{/employee/clock-in}" method="post">
+				        <button type="submit" class="btn">Clock In</button>
+				    </form>
+				    <form th:action="@{/employee/clock-out}" method="post">
+				        <button type="submit" class="btn">Clock Out</button>
+				    </form>
+					</div>
+			</div>	
+			<div class="card">
+			     <h3>Your TimeSheet</h3>
+			     <a th:href="@{/employee/timesheet}" class="btn">View</a>
+			</div>
             <div class="card">
-                <h3>Recent Payslip</h3>
+                <h3>Your Payslips</h3>
                 <a th:href="@{/employee/payslips}" class="btn">View</a>
-            </div>
+            </div>		
+		
+
         </div>
     </main>
 </body>

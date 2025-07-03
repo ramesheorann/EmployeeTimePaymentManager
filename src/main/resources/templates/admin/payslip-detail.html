@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Payslip Details</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <h1>Payslip Details</h1>
+        <a th:href="@{/logout}" class="btn">Logout</a>
+    </header>
+    <nav>
+        <ul>
+            <li><a th:href="@{/admin/dashboard}">Dashboard</a></li>
+            <li><a th:href="@{/admin/timesheet}">Timesheet</a></li>
+            <li><a th:href="@{/admin/payslips}">Payslips</a></li>
+        </ul>
+    </nav>
+    <main>
+        <div class="payslip">
+            <h2 th:text="${'Payslip for ' + #temporals.format(payslip.periodStart, 'MMM dd, yyyy') + ' - ' + #temporals.format(payslip.periodEnd, 'MMM dd, yyyy')}"></h2>
+            <div class="payslip-details">
+                <div>
+                    <span>Employee:</span>
+                    <span th:text="${payslip.employee.firstName + ' ' + payslip.employee.lastName}"></span>
+                </div>
+                <div>
+                    <span>Payment Date:</span>
+                    <span th:text="${#temporals.format(payslip.paymentDate, 'MMM dd, yyyy')}"></span>
+                </div>
+            </div>
+            <div class="payslip-amounts">
+                <div>
+                    <span>Gross Pay:</span>
+                    <span th:text="${'₹ ' + #numbers.formatDecimal(payslip.grossPay, 1, 2, 'COMMA')}"></span>
+                </div>
+                <div>
+                    <span>Tax:</span>
+                    <span th:text="${'₹ ' + #numbers.formatDecimal(payslip.taxAmount, 1, 2, 'COMMA')}"></span>
+                </div>
+                <div class="total">
+                    <span>Net Pay:</span>
+                    <span th:text="${'₹ ' + #numbers.formatDecimal(payslip.netPay, 1, 2, 'COMMA')}"></span>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

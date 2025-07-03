@@ -26,11 +26,10 @@ public class EmployeeController {
         Employee employee = employeeService.findByUsername(principal.getName());
         model.addAttribute("employee", employee);
         
-     // Calculate next Friday
+        // Calculate next Friday
         LocalDate today = LocalDate.now();
-        LocalDate nextFriday = today.with(TemporalAdjusters.next(DayOfWeek.FRIDAY));
-        model.addAttribute("nextPayday", nextFriday);
-        
+        LocalDate lastDayOfMonth = today.with(TemporalAdjusters.lastDayOfMonth());
+        model.addAttribute("nextPayday", lastDayOfMonth);
         return "employee/dashboard";
     }
     

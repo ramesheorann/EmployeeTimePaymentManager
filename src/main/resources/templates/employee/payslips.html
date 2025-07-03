@@ -31,7 +31,7 @@
                 <tr th:each="payslip : ${payslips}">
                     <td th:text="${#temporals.format(payslip.periodStart, 'MMM dd') + ' - ' + #temporals.format(payslip.periodEnd, 'MMM dd')}"></td>
                     <td th:text="${#temporals.format(payslip.paymentDate, 'MMM dd, yyyy')}"></td>
-                    <td th:text="${'$' + #numbers.formatDecimal(payslip.netPay, 1, 2, 'COMMA')}"></td>
+                    <td th:text="${'₹ ' + #numbers.formatDecimal(payslip.netPay, 1, 2, 'COMMA')}"></td>
                     <td><a th:href="@{/employee/payslip/} + ${payslip.id}"class="btn">View</a></td>
                 </tr>
             </tbody>

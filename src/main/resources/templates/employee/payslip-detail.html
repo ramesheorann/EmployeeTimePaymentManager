@@ -33,15 +33,15 @@
             <div class="payslip-amounts">
                 <div>
                     <span>Gross Pay:</span>
-                    <span th:text="${'$' + #numbers.formatDecimal(payslip.grossPay, 1, 2, 'COMMA')}"></span>
+                    <span th:text="${'₹ ' + #numbers.formatDecimal(payslip.grossPay, 1, 2, 'COMMA')}"></span>
                 </div>
                 <div>
                     <span>Tax:</span>
-                    <span th:text="${'$' + #numbers.formatDecimal(payslip.taxAmount, 1, 2, 'COMMA')}"></span>
+                    <span th:text="${'₹ ' + #numbers.formatDecimal(payslip.taxAmount, 1, 2, 'COMMA')}"></span>
                 </div>
                 <div class="total">
                     <span>Net Pay:</span>
-                    <span th:text="${'$' + #numbers.formatDecimal(payslip.netPay, 1, 2, 'COMMA')}"></span>
+                    <span th:text="${'₹ ' + #numbers.formatDecimal(payslip.netPay, 1, 2, 'COMMA')}"></span>
                 </div>
             </div>
             <button onclick="window.print()" class="btn">Print Payslip</button>

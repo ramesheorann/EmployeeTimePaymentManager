@@ -35,11 +35,16 @@
                     <td th:text="${payslip.employee.firstName + ' ' + payslip.employee.lastName}"></td>
                     <td th:text="${#temporals.format(payslip.periodStart, 'MMM dd') + ' - ' + #temporals.format(payslip.periodEnd, 'MMM dd')}"></td>
                     <td th:text="${#temporals.format(payslip.paymentDate, 'MMM dd, yyyy')}"></td>
-                    <td th:text="${'$' + #numbers.formatDecimal(payslip.netPay, 1, 2, 'COMMA')}"></td>
-                    <td><a th:href="@{/admin/payslip/} + ${payslip.id}">View</a></td>
+                    <td th:text="${'₹ ' + #numbers.formatDecimal(payslip.netPay, 1, 2, 'COMMA')}"></td>
+                    <td><a th:href="@{/admin/payslip/} + ${payslip.id}" class="btn">View</a>
+						<form th:action="@{'/admin/delete-payslip/' + ${payslip.id}}" method="post" style="display:inline;">
+							<button type="submit" class="btn" onclick="return confirm('Are you sure you want to delete this Payslip?');">Delete</button>
+						</form>
+				    </td>
                 </tr>
             </tbody>
         </table>
+		<button onclick="window.print()" class="btn" style="margin-top: 20px;">Print Payslips</button>
     </main>
 </body>
 </html>

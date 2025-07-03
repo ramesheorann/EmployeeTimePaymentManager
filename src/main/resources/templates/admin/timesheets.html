@@ -38,9 +38,12 @@
                     <td th:text="${entry.clockOut != null} ? ${#temporals.format(entry.clockOut, 'hh:mm a')} : '--'"></td>
                     <td th:text="${entry.clockOut != null} ? ${#numbers.formatDecimal(T(java.time.Duration).between(entry.clockIn, entry.clockOut).toHours(), 1, 2)} : '--'"></td>
                     <td>
-                        <form th:action="@{/admin/approve-time/} + ${entry.id}" method="post">
-                            <button type="submit" class="btn-small">Approve</button>
+                        <form th:action="@{/admin/approve-time/} + ${entry.id}" method="post" style="display:inline;">
+                            <button type="submit" class="btn">Approve</button>
                         </form>
+						<form th:action="@{'/admin/reject-time/' + ${entry.id}}" method="post" style="display:inline;">
+						    <button type="submit" class="btn" onclick="return confirm('Are you sure you want to delete this entry?');">Delete</button>
+						</form>
                     </td>
                 </tr>
             </tbody>

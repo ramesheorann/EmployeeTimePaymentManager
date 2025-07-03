@@ -21,7 +21,7 @@
     <main>
         <form th:action="@{/admin/generate-payslips}" method="post">
             <div class="form-group">
-                <label for="periodStart">Period Start:</label>
+                <label for="periodStart" >Period Start:</label>
                 <input type="date" id="periodStart" name="periodStart" 
                        th:value="${#temporals.format(periodStart, 'yyyy-MM-dd')}" required />
             </div>

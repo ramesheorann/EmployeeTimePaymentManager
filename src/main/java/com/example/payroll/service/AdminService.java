@@ -7,6 +7,8 @@ import com.example.payroll.repository.EmployeeRepository;
 import com.example.payroll.repository.PayslipRepository;
 import com.example.payroll.repository.TimeEntryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +39,9 @@ public class AdminService {
     public long getEmployeeCount() {
         return employeeRepository.count();
     }
+    public long getPayslipsCount() {
+        return payslipRepository.count();
+    }
     
     public List<TimeEntry> getPendingTimeEntries() {
         return timeEntryRepository.findByApprovedFalse();
@@ -58,6 +63,13 @@ public class AdminService {
         timeEntryRepository.save(entry);
     }
     
+    public void deleteTimeEntry(Long id) {
+    	System.out.println("Attempting to delete TimeEntry ID: " + id);
+    	TimeEntry entry=timeEntryRepository.findById(id)
+    			.orElseThrow(() -> new RuntimeException("Time entry not found"));
+    	timeEntryRepository.delete(entry);
+    	System.out.println("Deleted TimeEntry ID: " + id);
+    }
     public List<Payslip> getAllPayslips() {
         return payslipRepository.findAll();
     }
@@ -83,7 +95,7 @@ public class AdminService {
             payslip.setPeriodEnd(periodEnd);
             payslip.setGrossPay(grossPay);
             payslip.setTaxAmount(taxAmount);
-            payslip.setNetPay(netPay);
+            payslip.setNetPay(netPay); 
             payslip.setPaymentDate(LocalDate.now());
             
             payslipRepository.save(payslip);
@@ -107,7 +119,7 @@ public class AdminService {
         if (employee.getId() == null || (employee.getPassword() != null && !employee.getPassword().isEmpty())) {
             employee.setPassword(passwordEncoder.encode(employee.getPassword()));
         } else {
-            // Keep existing password
+            // Keeping existing password
             String existingPassword = employeeRepository.findById(employee.getId())
                     .map(Employee::getPassword)
                     .orElse(null);
@@ -124,6 +136,16 @@ public class AdminService {
 
     public void deleteEmployee(Long id) {
         employeeRepository.deleteById(id);
+    }
+    
+    //new new
+  
+    public Payslip getPayslip(Long payslipId) {
+        return payslipRepository.findById(payslipId)
+                .orElseThrow(() -> new RuntimeException("Payslip not found"));
+    }
+    public void deletePayslip(Long id) {
+    	payslipRepository.deleteById(id);
     }
 //newly added end
 }

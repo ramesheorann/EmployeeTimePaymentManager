@@ -5,9 +5,12 @@ import com.example.payroll.model.Payslip;
 import com.example.payroll.model.TimeEntry;
 import com.example.payroll.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -22,6 +25,7 @@ public class AdminController {
     public String adminDashboard(Model model) {
         model.addAttribute("employeeCount", adminService.getEmployeeCount());
         model.addAttribute("pendingApprovals", adminService.getPendingTimeEntries());
+        model.addAttribute("payslipsCount", adminService.getPayslipsCount());
         return "admin/dashboard";
     }
     
@@ -48,6 +52,19 @@ public class AdminController {
         adminService.approveTimeEntry(id);
         return "redirect:/admin/timesheets";
     }
+    //NEW
+    @PostMapping("/reject-time/{id}")
+    public String deleteTimeEntry(@PathVariable Long id) {
+        adminService.deleteTimeEntry(id);
+        return "redirect:/admin/timesheets";
+    }
+    
+    @PostMapping("/delete-payslip/{id}")
+    public String deletePayslip(@PathVariable Long id) {
+    	adminService.deletePayslip(id);
+    	return "redirect:/admin/payslips";
+    }
+    //NEW END
     
     @GetMapping("/payslips")
     public String managePayslips(Model model) {
@@ -94,6 +111,12 @@ public class AdminController {
         adminService.deleteEmployee(id);
         return "redirect:/admin/employees";
     }
-
+    //adding new new 
+    @GetMapping("/payslip/{id}")
+    public String viewPayslip(@PathVariable Long id, Model model, Principal principal) {
+        Payslip payslip = adminService.getPayslip(id);
+        model.addAttribute("payslip", payslip);
+        return "admin/payslip-detail";
+    }
     
 }

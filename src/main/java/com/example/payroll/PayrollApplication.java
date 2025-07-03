@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import java.math.BigDecimal;
 
-@SpringBootApplication
+@SpringBootApplication 
 public class PayrollApplication {
 
     public static void main(String[] args) {
